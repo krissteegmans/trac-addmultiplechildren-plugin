@@ -1,0 +1,22 @@
+AddMultipleChildren-plugin
+==========================
+
+Plugin for trac to allow to add multiple children at once.
+
+It requires the trac-subtickets-plugin to be installed.
+
+Additionally, it requires a type 'task' to be present and a custom field with the name 'estimate' to be present.
+
+The plugin adds a link above the children overview in a ticket view. That link brings you to a page where you can enter in text mode a number of new children. When submitting, these children will be added to the parent ticket.
+
+Example text input:
+- 1 Task1
+- 2 Task2
+- 3 Task3, with estimation 3 (see first word after the '-')
+- 5 This is the summary of task 4, with estimation 5
+This is the description of taks 4
+- 8 This is the summary of task 5
+This is the description of task 5
+
+This is the second paragraph of the description of task 5
+- 13 Task6
