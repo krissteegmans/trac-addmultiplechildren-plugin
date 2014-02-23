@@ -85,7 +85,7 @@ class AddMultipleChildrenPlugin(Component):
                 'version': None,
                 'split-string-error': None}
         add_stylesheet(req, 'common/css/ticket.css')
-        add_stylesheet(req, 'hw/css/addMulitpleChildren.css')
+        add_stylesheet(req, 'hw/css/addMultipleChildren.css')
         if req.method == 'POST':
             def _create_sub_tickets(self, string):
                 sub_tickets = parseSubTicketString(string)
@@ -99,7 +99,7 @@ class AddMultipleChildrenPlugin(Component):
                     t['estimate'] = s.estimate
                     t['cl_product'] = ticket['cl_product']
                     t.insert()
-            split_string = req.args['split']
+            split_string = req.args['addMultipleChildren']
             try:
                 _create_sub_tickets(self, split_string)
                 req.redirect(req.href.ticket(ticket.id))

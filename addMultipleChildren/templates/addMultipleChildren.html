@@ -6,7 +6,7 @@
       xmlns:xi="http://www.w3.org/2001/XInclude">
   <xi:include href="layout.html" />
   <head>
-    <title>Split $ticket.summary</title>
+    <title>Add Multiple Children for $ticket.summary</title>
   </head>
 
   <body>
@@ -16,9 +16,20 @@
       <xi:include href="ticket_box.html" py:with="ticket=ticket;fields=[{'name': 'priority'}]" />
     </div>
 
-    <div id="split" class="ticket">
+    <div id="addMultipleChildren" class="ticket">
+      <text>Example:</text>
+      <textarea readonly="true" class="trac-resizable" rows="15" cols="91">- 1 Task1
+- 2 Task2
+- 3 Task3
+- 5 This is the summary of task 4
+This is the description of taks 4
+- 8 This is the summary of task 5
+This is the description of task 5
+
+This is the second paragraph of the description of task 5
+- 13 Task6</textarea>
       <form method="POST">
-	<textarea name="split" class="trac-resizable" rows="10" cols="91"></textarea>
+	<textarea name="addMultipleChildren" class="trac-resizable" rows="10" cols="91"></textarea>
 	<input type="submit"/>
       </form>
     </div>
