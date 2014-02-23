@@ -2,11 +2,14 @@
 
 from trac.core import *
 from trac.web.chrome import ITemplateProvider, add_stylesheet
+from trac.web.api import ITemplateStreamFilter
 from trac.web.main import IRequestHandler
 from trac.util import get_reporter_id
 import re
 from trac.ticket import model
 from ast import literal_eval
+from genshi.builder import tag
+from genshi.filters import Transformer
 
 class SubTicketsStringError(Exception):
     def __init__(self, message):
@@ -70,7 +73,9 @@ class AddMultipleChildrenPlugin(Component):
     """A plugin to create a number of child tickets at once.
     It relies on the custom fields 'cl_product' and 'estimate' being present.
     """
-    implements(IRequestHandler, ITemplateProvider)
+    implements(IRequestHandler, 
+               ITemplateProvider, 
+               ITemplateStreamFilter)
 
     # IRequestHandler methods
     def match_request(self, req):
@@ -98,6 +103,7 @@ class AddMultipleChildrenPlugin(Component):
                     t['reporter'] = get_reporter_id(req)
                     t['estimate'] = s.estimate
                     t['cl_product'] = ticket['cl_product']
+                    t['type'] = 'task'
                     t.insert()
             split_string = req.args['addMultipleChildren']
             try:
@@ -132,3 +138,11 @@ class AddMultipleChildrenPlugin(Component):
         from pkg_resources import resource_filename
         return [('hw', resource_filename(__name__, 'htdocs'))]
  
+    # ITemplateStreamFilter methods
+    def filter_stream(self, req, method, filename, stream, data):
+        if req.path_info.startswith('/ticket/'):
+            ticket = data.get('ticket')
+            div = tag.div(tag.a("Create Multiple Children", href=(req.href.addmultiplechildren() + "/%s" % ticket.id)))
+            stream |= Transformer('.//div[@id="ticket"]').append(div)
+
+        return stream

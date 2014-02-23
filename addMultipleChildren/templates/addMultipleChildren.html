@@ -18,16 +18,17 @@
 
     <div id="addMultipleChildren" class="ticket">
       <text>Example:</text>
-      <textarea readonly="true" class="trac-resizable" rows="15" cols="91">- 1 Task1
+      <textarea readonly="true" class="trac-resizable" rows="11" cols="91">- 1 Task1
 - 2 Task2
-- 3 Task3
-- 5 This is the summary of task 4
+- 3 Task3, with estimation 3 (see first word after the '-')
+- 5 This is the summary of task 4, with estimation 5
 This is the description of taks 4
 - 8 This is the summary of task 5
 This is the description of task 5
 
 This is the second paragraph of the description of task 5
 - 13 Task6</textarea>
+      <text>New Subtickets:</text>
       <form method="POST">
 	<textarea name="addMultipleChildren" class="trac-resizable" rows="10" cols="91"></textarea>
 	<input type="submit"/>
