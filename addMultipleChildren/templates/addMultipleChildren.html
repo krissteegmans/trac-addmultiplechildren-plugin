@@ -17,7 +17,7 @@
     </div>
 
     <div id="addMultipleChildren" class="ticket">
-      <text>Example:</text>
+      Example:
       <textarea readonly="true" class="trac-resizable" rows="11" cols="91">- 1 Task1
 - 2 Task2
 - 3 Task3, with estimation 3 (see first word after the '-')
@@ -28,9 +28,12 @@ This is the description of task 5
 
 This is the second paragraph of the description of task 5
 - 13 Task6</textarea>
-      <text>New Subtickets:</text>
+      New Subtickets:<br/>
+      <div py:if="show_split_string_error" id="split_string_error">
+	<textarea id="split_string_error_text" readonly="true" rows="$split_string_error_line_count" cols="91">$split_string_error</textarea>
+      </div>
       <form method="POST">
-	<textarea name="addMultipleChildren" class="trac-resizable" rows="10" cols="91"></textarea>
+	<textarea name="addMultipleChildren" class="trac-resizable" rows="10" cols="91">$split_string</textarea>
 	<input type="submit"/>
       </form>
     </div>

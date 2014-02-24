@@ -35,17 +35,13 @@ def parseSubTicketString(string):
         return []
     if string[0] != '-':
         raise SubTicketsStringError(
-            """The sub ticket string should start with a '-'.
-
-%s""" % string)
+            """The sub ticket string should start with a '-'.""")
     string = string[1:]
     def _parseSubTicket(sub_ticket):
         split = sub_ticket.split('\n', 1)
         first_line = split[0].strip().split(' ', 1)
         first_line_error = """The first line of a sub ticket string should be of the form:
-'<estimate><space><summary>' where the '<estimate>' should be float or an int.
-
-%s""" % split[0]
+'<estimate><space><summary>' where the '<estimate>' should be float or an int."""
         if len(first_line) != 2:
             raise SubTicketsStringError(first_line_error)
         summary = first_line[1]
@@ -88,7 +84,10 @@ class AddMultipleChildrenPlugin(Component):
         ticket = model.Ticket(self.env, req.args.get('ticket'))
         data = {'ticket': ticket,
                 'version': None,
-                'split-string-error': None}
+                'split_string_error': None,
+                'split_string_error_line_count': 0,
+                'show_split_string_error': False,
+                'split_string': ""}
         add_stylesheet(req, 'common/css/ticket.css')
         add_stylesheet(req, 'hw/css/addMultipleChildren.css')
         if req.method == 'POST':
@@ -110,7 +109,10 @@ class AddMultipleChildrenPlugin(Component):
                 _create_sub_tickets(self, split_string)
                 req.redirect(req.href.ticket(ticket.id))
             except SubTicketsStringError as error:
-                data['split-string-error'] = error.message
+                data['split_string_error'] = error.message
+                data['split_string_error_line_count'] = error.message.count('\n') + 2
+                data['show_split_string_error'] = True
+                data['split_string'] = split_string
         # This tuple is for Genshi (template_name, data, content_type)
         # Without data the trac layout will not appear.
         return 'addMultipleChildren.html', data, None

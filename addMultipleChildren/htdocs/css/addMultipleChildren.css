@@ -4,3 +4,11 @@
  margin-left: auto;
  margin-right: auto;
 }
+
+#split_string_error_text {
+    background: transparent;
+}
+
+#split_string_error {
+    background-color: #D00000;
+}
