@@ -62,7 +62,7 @@ def parseSubTicketString(string):
         t.description = description
         t.estimate = estimate
         return t
-    return map(_parseSubTicket, string.split('-'))
+    return map(_parseSubTicket, string.split('\n-'))
     
 
 class AddMultipleChildrenPlugin(Component):
