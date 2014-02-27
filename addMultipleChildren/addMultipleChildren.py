@@ -39,17 +39,21 @@ def parseSubTicketString(string):
     string = string[1:]
     def _parseSubTicket(sub_ticket):
         split = sub_ticket.split('\n', 1)
-        first_line = split[0].strip().split(' ', 1)
+        first_line = split[0].split(' ', 2)
         first_line_error = """The first line of a sub ticket string should be of the form:
-'<estimate><space><summary>' where the '<estimate>' should be float or an int."""
-        if len(first_line) != 2:
+'-<space><estimate><space><summary>' where the '<estimate>' is optional or should be float or an int.
+In case the estimate is omitted, the line SHOULD have 2 spaces after the '-'."""
+        if len(first_line) != 3:
             raise SubTicketsStringError(first_line_error)
-        summary = first_line[1]
+        if first_line[0] != '':
+            raise SubTicketsStringError(first_line_error)
+        summary = first_line[2]
         try:
-            float(first_line[0])
+            if first_line[1]:
+                float(first_line[1])
         except ValueError:
             raise SubTicketsStringError(first_line_error)
-        estimate = first_line[0]
+        estimate = first_line[1]
 
         if len(split) > 1:
             description = split[1]
