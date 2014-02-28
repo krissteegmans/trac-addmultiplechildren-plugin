@@ -16,9 +16,13 @@
       <xi:include href="ticket_box.html" py:with="ticket=ticket;fields=[{'name': 'priority'}]" />
     </div>
 
+    <!-- #addMultipleChildren -->
     <div id="addMultipleChildren" class="ticket">
-      Example:
-      <textarea readonly="true" class="trac-resizable" rows="12" cols="91">- 8 Task1
+        <!-- row -->
+        <div class="row">
+            <div class="textarea first">
+                <label for="id_example">Example:</label>
+                <textarea id="id_example" readonly="true" class="trac-resizable" rows="12" cols="91">- 8 Task1
 - 8 Task2
 - 5 Task3, with estimation 5 (see first word after the '-')
 - 1 This is the summary of task 4, with estimation 1
@@ -30,14 +34,24 @@ This is the description of task 6
 This is the second paragraph of the description of task 6
 - 2 Task7
 -  This is another task (8) with no estimate</textarea>
-      New Subtickets:<br/>
-      <div py:if="show_split_string_error" id="split_string_error">
-	<textarea id="split_string_error_text" readonly="true" rows="$split_string_error_line_count" cols="91">$split_string_error</textarea>
-      </div>
-      <form method="POST">
-	<textarea name="addMultipleChildren" class="trac-resizable" rows="10" cols="91">$split_string</textarea>
-	<input type="submit"/>
-      </form>
+            </div>
+        </div>
+        <!-- /row -->
+        <!-- row -->
+        <div class="row">
+            <div class="textarea first">
+                <label for="id_subtickets">New Subtickets:</label>
+                <div py:if="show_split_string_error" id="split_string_error">
+	               $split_string_error
+                </div>
+                <form method="POST">
+                    <textarea name="addMultipleChildren" class="trac-resizable" rows="10" cols="91">$split_string</textarea>
+                    <input type="submit" value="Add subtickets" />
+                </form>
+            </div>
+        </div>
+        <!-- /row -->
     </div>
+    <!-- /#addMultipleChildren -->
   </body>
 </html>
